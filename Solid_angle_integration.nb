@@ -1,0 +1,431 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     14804,        423]
+NotebookOptionsPosition[     13201,        389]
+NotebookOutlinePosition[     13597,        405]
+CellTagsIndexPosition[     13554,        402]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Solid Angle Integration", "Title",
+ CellChangeTimes->{{3.932185485150771*^9, 
+  3.9321854933749743`*^9}},ExpressionUUID->"d7253381-dbe0-416f-9261-\
+cd6cb2b2093d"],
+
+Cell[CellGroupData[{
+
+Cell["Introduction", "Section",
+ CellChangeTimes->{{3.932186159747716*^9, 
+  3.9321861617325373`*^9}},ExpressionUUID->"3ed96af6-c89c-40db-bedb-\
+3a026e46e013"],
+
+Cell[TextData[{
+ "Consider a vector ",
+ Cell[BoxData[
+  FormBox[
+   StyleBox["x",
+    FontWeight->"Bold"], TraditionalForm]],ExpressionUUID->
+  "b4b4edf1-0655-4f67-8565-d520bc3dd5fd"],
+ " that points from the origin to the point ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{"(", 
+         RowBox[{
+           StyleBox["x", "TI"], ",", 
+           StyleBox["y", "TI"], ",", 
+           StyleBox["z", "TI"]}], ")"}], TraditionalForm], "errors" -> {}, 
+     "input" -> "(x,y,z)", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "fa2b2619-8166-4539-b009-8b44361814de"],
+ " in 3 dimensional space. Define ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         StyleBox["r", "TI"], "\[Congruent]", "|", 
+         StyleBox["x", "TI"], "|"}], TraditionalForm], "errors" -> {}, 
+     "input" -> "r \\equiv |x|", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "936d2acb-b0d1-4e5a-9b42-3214d8346222"],
+ ". Then we can write\n                                                   ",
+ StyleBox["x",
+  FontWeight->"Bold"],
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{"\[LongEqual]", 
+         StyleBox["r", "TI"], 
+         OverscriptBox[
+          StyleBox["n", "TI"], "^"]}], TraditionalForm], "errors" -> {}, 
+     "input" -> "=r\\hat{n}", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "9849af3b-8c17-43ac-b350-4ba98e86a580"],
+ "\nWhere ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    TemplateBox[<|"boxes" -> FormBox[
+        OverscriptBox[
+         StyleBox["n", "TI"], "^"], TraditionalForm], "errors" -> {}, "input" -> 
+      "\\hat{n}", "state" -> "Boxes"|>,
+     "TeXAssistantTemplate"], "=", 
+    RowBox[{
+     StyleBox["x",
+      FontWeight->"Bold"], "/", "r"}]}], TraditionalForm]],ExpressionUUID->
+  "cfa8a279-de26-4345-ac15-e75453e5d045"],
+ " ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{"\[LongEqual]", "(", 
+         RowBox[{
+           SubscriptBox[
+            OverscriptBox[
+             StyleBox["n", "TI"], "^"], "1"], ",", 
+           SubscriptBox[
+            OverscriptBox[
+             StyleBox["n", "TI"], "^"], "2"], ",", 
+           SubscriptBox[
+            OverscriptBox[
+             StyleBox["n", "TI"], "^"], "3"]}], ")"}], TraditionalForm], 
+     "errors" -> {}, "input" -> "= (\\hat{n}_1,\\hat{n}_2,\\hat{n}_3)", 
+     "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "b4e4c43f-a544-4ee4-ad4a-df462a780962"],
+ " is a unit vector that points in the radial direction and ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         SubsuperscriptBox[
+          OverscriptBox[
+           StyleBox["n", "TI"], "^"], "1", "2"], "+", 
+         SubsuperscriptBox[
+          OverscriptBox[
+           StyleBox["n", "TI"], "^"], "2", "2"], "+", 
+         SubsuperscriptBox[
+          OverscriptBox[
+           StyleBox["n", "TI"], "^"], "3", "2"], "\[LongEqual]", "1"}], 
+       TraditionalForm], "errors" -> {}, "input" -> 
+     "\\hat{n}_1^2+\\hat{n}_2^2+\\hat{n}_3^2=1", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "f937d613-9aa4-4f26-8003-d9f250da4e7a"],
+ ". In spherical coordinates\n",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         SubscriptBox[
+          OverscriptBox[
+           StyleBox["n", "TI"], "^"], "1"], "\[LongEqual]", "sin", "\[Theta]",
+          "cos", "\[Phi]"}], TraditionalForm], "errors" -> {}, "input" -> 
+     "\\hat{n}_1=\\sin\\theta \\cos\\phi", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "79fecfe1-70e5-4486-bf00-ed1c425d28c2"],
+ ",                          ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         SubscriptBox[
+          OverscriptBox[
+           StyleBox["n", "TI"], "^"], "2"], "\[LongEqual]", "sin", "\[Theta]",
+          "sin", "\[Phi]"}], TraditionalForm], "errors" -> {}, "input" -> 
+     "\\hat{n}_2=\\sin \\theta \\sin \\phi", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "2e0e1314-3683-4c62-bc9d-f5e3881739a7"],
+ ",                             ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         SubscriptBox[
+          OverscriptBox[
+           StyleBox["n", "TI"], "^"], "3"], "\[LongEqual]", "cos", 
+         "\[Theta]"}], TraditionalForm], "errors" -> {}, "input" -> 
+     "\\hat{n}_3=\\cos \\theta", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "4a381a3c-ba31-4a67-a8b9-2fc9827eeb28"],
+ "\nwhere ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|
+    "boxes" -> FormBox["\[Theta]", TraditionalForm], "errors" -> {}, "input" -> 
+     "\\theta", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "9d47951a-9676-467d-a497-5cf1b203cbef"],
+ " is the ",
+ StyleBox["polar ",
+  FontWeight->"Bold"],
+ Cell[BoxData[
+  FormBox["angle", TraditionalForm]],
+  FontWeight->"Bold",ExpressionUUID->"9efb9900-4776-4621-b4e6-ddb681bfd5c7"],
+ StyleBox[" ",
+  FontWeight->"Bold"],
+ "and ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|
+    "boxes" -> FormBox["\[Phi]", TraditionalForm], "errors" -> {}, "input" -> 
+     "\\phi", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "2d08a59d-83ee-49e0-8f98-f806aab0b1cc"],
+ " is the ",
+ StyleBox["azimuthal angle",
+  FontWeight->"Bold"]
+}], "Text",
+ CellChangeTimes->{{3.932186185167344*^9, 3.9321864075520763`*^9}, {
+  3.932186448776175*^9, 3.932186523986101*^9}, {3.932186554372347*^9, 
+  3.93218662290364*^9}},ExpressionUUID->"d551e909-6fc5-4954-9466-\
+1d6039e4d78a"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Exercises", "Section",
+ CellChangeTimes->{{3.9321866377560387`*^9, 
+  3.932186646188178*^9}},ExpressionUUID->"f26095cd-90ab-486c-9394-\
+a012cde76436"],
+
+Cell[TextData[{
+ "1. Show that ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         SubsuperscriptBox[
+          OverscriptBox[
+           StyleBox["n", "TI"], "^"], "1", "2"], "+", 
+         SubsuperscriptBox[
+          OverscriptBox[
+           StyleBox["n", "TI"], "^"], "2", "2"], "+", 
+         SubsuperscriptBox[
+          OverscriptBox[
+           StyleBox["n", "TI"], "^"], "3", "2"], "\[LongEqual]", "1"}], 
+       TraditionalForm], "errors" -> {}, "input" -> 
+     "\\hat{n}_1^2 + \\hat {n} _ 2^2 + \\hat {n} _3^2 = 1", "state" -> 
+     "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "a01c8614-c002-4f33-adf6-9d7c9637efb1"]
+}], "Text",
+ CellChangeTimes->{{3.9321855816621447`*^9, 3.932185582273369*^9}, {
+  3.932186651879987*^9, 
+  3.9321866814551353`*^9}},ExpressionUUID->"8e23407a-c888-4fd7-bdcb-\
+e7ef521065d2"],
+
+Cell[BoxData[
+ RowBox[{"sum", "="}]], "Input",
+ CellChangeTimes->{{3.932186701036721*^9, 
+  3.932186704389819*^9}},ExpressionUUID->"941f66c4-5638-45fe-a104-\
+736581f5d167"],
+
+Cell[TextData[{
+ "2. Show that ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{"\[Integral]", 
+         SubscriptBox[
+          OverscriptBox[
+           StyleBox["n", "TI"], "^"], 
+          StyleBox["i", "TI"]], 
+         SubscriptBox[
+          OverscriptBox[
+           StyleBox["n", "TI"], "^"], 
+          StyleBox["j", "TI"]], 
+         StyleBox["d", "TI"], "\[CapitalOmega]", "\[LongEqual]", 
+         FractionBox[
+          RowBox[{"4", "\[Pi]"}], "3"], 
+         SubscriptBox["\[Delta]", 
+          RowBox[{
+            StyleBox["i", "TI"], 
+            StyleBox["j", "TI"]}]]}], TraditionalForm], "errors" -> {}, 
+     "input" -> 
+     "\\int \\hat{n}_i \\hat{n}_j d\\Omega=\\frac{4 \\pi}{3}\\delta_{ij}", 
+     "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "35ecf245-cce4-40c6-b28d-a528d2119e74"]
+}], "Text",
+ CellChangeTimes->{{3.932186710356449*^9, 
+  3.9321867395468903`*^9}},ExpressionUUID->"5c2943fc-f550-44cf-b4b4-\
+f26721e70a62"],
+
+Cell[BoxData[
+ RowBox[{"nVector", "=", 
+  RowBox[{"List", "[", 
+   RowBox[{"n1", ",", "n2", ",", "n3"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.9321868101384897`*^9, 3.932186821394804*^9}, {
+  3.9321868711760197`*^9, 3.932186879086211*^9}, {3.9321869414643297`*^9, 
+  3.93218696525979*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"2799004f-41b2-4927-b5cd-35d180bef2d7"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"For", "[", 
+  RowBox[{
+   RowBox[{"i", "=", "1"}], ",", 
+   RowBox[{"i", "<", "4"}], ",", 
+   RowBox[{"i", "++"}], ",", 
+   RowBox[{"Print", "[", 
+    RowBox[{"Part", "[", 
+     RowBox[{"nVector", ",", "i"}], "]"}], "]"}]}], "]"}]], "Input",Expression\
+UUID->"31f89f75-743d-4951-bc04-97ac14b9da20"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"n1", ",", "n2", ",", "n3"}], "}"}]], "Output",
+ CellChangeTimes->{3.932187503515422*^9, 3.932187707450848*^9},
+ CellLabel->"Out[1]=",ExpressionUUID->"42251a6e-2f7e-4108-baf9-138c745850eb"]
+}, Open  ]],
+
+Cell[TextData[{
+ "3. Show that ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{"\[Integral]", 
+         SubscriptBox[
+          OverscriptBox[
+           StyleBox["n", "TI"], "^"], 
+          StyleBox["i", "TI"]], 
+         SubscriptBox[
+          OverscriptBox[
+           StyleBox["n", "TI"], "^"], 
+          StyleBox["j", "TI"]], 
+         SubscriptBox[
+          OverscriptBox[
+           StyleBox["n", "TI"], "^"], 
+          StyleBox["k", "TI"]], 
+         SubscriptBox[
+          OverscriptBox[
+           StyleBox["n", "TI"], "^"], 
+          StyleBox["l", "TI"]], 
+         StyleBox["d", "TI"], "\[CapitalOmega]", "\[LongEqual]", 
+         FractionBox[
+          RowBox[{"4", "\[Pi]"}], "15"], 
+         RowBox[{"(", 
+           RowBox[{
+             SubscriptBox["\[Delta]", 
+              RowBox[{
+                StyleBox["i", "TI"], 
+                StyleBox["j", "TI"]}]], 
+             SubscriptBox["\[Delta]", 
+              RowBox[{
+                StyleBox["k", "TI"], 
+                StyleBox["l", "TI"]}]], "+", 
+             SubscriptBox["\[Delta]", 
+              RowBox[{
+                StyleBox["i", "TI"], 
+                StyleBox["k", "TI"]}]], 
+             SubscriptBox["\[Delta]", 
+              RowBox[{
+                StyleBox["j", "TI"], 
+                StyleBox["l", "TI"]}]], "+", 
+             SubscriptBox["\[Delta]", 
+              RowBox[{
+                StyleBox["i", "TI"], 
+                StyleBox["l", "TI"]}]], 
+             SubscriptBox["\[Delta]", 
+              RowBox[{
+                StyleBox["k", "TI"], 
+                StyleBox["j", "TI"]}]]}], ")"}]}], TraditionalForm], 
+     "errors" -> {}, "input" -> 
+     "\\int \\hat{n}_i \\hat{n}_j \\hat{n}_k \\hat{n}_l d\\Omega = \\frac{4 \
+\\pi}{15}(\\delta_{ij} \\delta_{kl}+\\delta_{ik}\\delta_{jl}+\\delta_{il} \
+\\delta_{kj})", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "f59cea00-7239-4561-8a89-a9a6733df7e8"]
+}], "Text",
+ CellChangeTimes->{{3.932186970499587*^9, 3.932186975061714*^9}, {
+  3.932187194112296*^9, 
+  3.932187196031498*^9}},ExpressionUUID->"bf700da6-feb4-49de-a5b5-\
+ab8c06fa148f"],
+
+Cell[BoxData[
+ RowBox[{"For", "[", 
+  RowBox[{
+   RowBox[{"i", "=", "1"}], ",", 
+   RowBox[{"i", "<", "4"}], ",", 
+   RowBox[{"i", "++"}], ",", 
+   RowBox[{"Print", "[", 
+    RowBox[{"Part", "[", 
+     RowBox[{"nVector", ",", "i"}], "]"}], "]"}]}], "]"}]], "Input",Expression\
+UUID->"ec5b3837-6bbc-459a-b8d9-9228beca15fe"],
+
+Cell[TextData[{
+ "4. Show that ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{"\[Integral]", 
+         OverscriptBox[
+          StyleBox["n", "TI"], "^"], 
+         StyleBox["d", "TI"], "\[CapitalOmega]", "\[LongEqual]", "0"}], 
+       TraditionalForm], "errors" -> {}, "input" -> 
+     "\\int \\hat{n} d\\Omega=0", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "2df9e0b0-8cf8-4a3d-9e2f-7c9f93d63726"]
+}], "Text",
+ CellChangeTimes->{{3.932187825641955*^9, 
+  3.932187837190159*^9}},ExpressionUUID->"f539dc76-983b-46ad-be58-\
+b174282f8f0e"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{606, 431.25},
+WindowMargins->{{Automatic, 168.75}, {6, Automatic}},
+FrontEndVersion->"13.3 for Linux x86 (64-bit) (July 24, 2023)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"2f16eb8c-bc6e-4c61-8391-8df25d48815c"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 168, 3, 98, "Title",ExpressionUUID->"d7253381-dbe0-416f-9261-cd6cb2b2093d"],
+Cell[CellGroupData[{
+Cell[773, 29, 159, 3, 67, "Section",ExpressionUUID->"3ed96af6-c89c-40db-bedb-3a026e46e013"],
+Cell[935, 34, 5857, 159, 187, "Text",ExpressionUUID->"d551e909-6fc5-4954-9466-1d6039e4d78a"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6829, 198, 156, 3, 67, "Section",ExpressionUUID->"f26095cd-90ab-486c-9394-a012cde76436"],
+Cell[6988, 203, 892, 24, 37, "Text",ExpressionUUID->"8e23407a-c888-4fd7-bdcb-e7ef521065d2"],
+Cell[7883, 229, 172, 4, 29, "Input",ExpressionUUID->"941f66c4-5638-45fe-a104-736581f5d167"],
+Cell[8058, 235, 1023, 29, 61, "Text",ExpressionUUID->"5c2943fc-f550-44cf-b4b4-f26721e70a62"],
+Cell[9084, 266, 370, 7, 29, "Input",ExpressionUUID->"2799004f-41b2-4927-b5cd-35d180bef2d7"],
+Cell[CellGroupData[{
+Cell[9479, 277, 322, 9, 29, "Input",ExpressionUUID->"31f89f75-743d-4951-bc04-97ac14b9da20"],
+Cell[9804, 288, 228, 4, 33, "Output",ExpressionUUID->"42251a6e-2f7e-4108-baf9-138c745850eb"]
+}, Open  ]],
+Cell[10047, 295, 2183, 61, 61, "Text",ExpressionUUID->"bf700da6-feb4-49de-a5b5-ab8c06fa148f"],
+Cell[12233, 358, 322, 9, 29, "Input",ExpressionUUID->"ec5b3837-6bbc-459a-b8d9-9228beca15fe"],
+Cell[12558, 369, 615, 16, 47, "Text",ExpressionUUID->"f539dc76-983b-46ad-be58-b174282f8f0e"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
